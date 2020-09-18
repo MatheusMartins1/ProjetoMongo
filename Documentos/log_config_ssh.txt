@@ -1,0 +1,140 @@
+matheus@ubuntu:~$ sudo apt update
+[sudo] password for matheus: 
+P@Sorry, try again.
+[sudo] password for matheus: 
+Hit:1 http://us.archive.ubuntu.com/ubuntu focal InRelease
+Hit:2 http://us.archive.ubuntu.com/ubuntu focal-updates InRelease
+Hit:3 http://us.archive.ubuntu.com/ubuntu focal-backports InRelease
+Hit:4 http://security.ubuntu.com/ubuntu focal-security InRelease
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+1 package can be upgraded. Run 'apt list --upgradable' to see it.
+matheus@ubuntu:~$ sudo apt install openssh-server -y
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  libfprint-2-tod1 libllvm9 python3-click python3-colorama
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  ncurses-term openssh-sftp-server ssh-import-id
+Suggested packages:
+  molly-guard monkeysphere ssh-askpass
+The following NEW packages will be installed:
+  ncurses-term openssh-server openssh-sftp-server ssh-import-id
+0 upgraded, 4 newly installed, 0 to remove and 1 not upgraded.
+Need to get 688 kB of archives.
+After this operation, 6,010 kB of additional disk space will be used.
+Get:1 http://us.archive.ubuntu.com/ubuntu focal/main amd64 ncurses-term all 6.2-0ubuntu2 [249 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 openssh-sftp-server amd64 1:8.2p1-4ubuntu0.1 [51.5 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 openssh-server amd64 1:8.2p1-4ubuntu0.1 [377 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu focal/main amd64 ssh-import-id all 5.10-0ubuntu1 [10.0 kB]
+Fetched 688 kB in 1s (489 kB/s)          
+Preconfiguring packages ...
+Selecting previously unselected package ncurses-term.
+(Reading database ... 189505 files and directories currently installed.)
+Preparing to unpack .../ncurses-term_6.2-0ubuntu2_all.deb ...
+Unpacking ncurses-term (6.2-0ubuntu2) ...
+Selecting previously unselected package openssh-sftp-server.
+Preparing to unpack .../openssh-sftp-server_1%3a8.2p1-4ubuntu0.1_amd64.deb ...
+Unpacking openssh-sftp-server (1:8.2p1-4ubuntu0.1) ...
+Selecting previously unselected package openssh-server.
+Preparing to unpack .../openssh-server_1%3a8.2p1-4ubuntu0.1_amd64.deb ...
+Unpacking openssh-server (1:8.2p1-4ubuntu0.1) ...
+Selecting previously unselected package ssh-import-id.
+Preparing to unpack .../ssh-import-id_5.10-0ubuntu1_all.deb ...
+Unpacking ssh-import-id (5.10-0ubuntu1) ...
+Setting up openssh-sftp-server (1:8.2p1-4ubuntu0.1) ...
+Setting up openssh-server (1:8.2p1-4ubuntu0.1) ...
+
+Creating config file /etc/ssh/sshd_config with new version
+Creating SSH2 RSA key; this may take some time ...
+3072 SHA256:0G5Br/rYNZABAwAe9ZV3RZ2KTFJCHfr+uozEuxYTbK8 root@ubuntu (RSA)
+Creating SSH2 ECDSA key; this may take some time ...
+256 SHA256:mD5M3PB7n0udoaaMB2m47NDU/xR7kzu4G9a+Oah1ZfA root@ubuntu (ECDSA)
+Creating SSH2 ED25519 key; this may take some time ...
+256 SHA256:uZnf/JB9KRdrNg8kB5asgPMufbYgqHHqkzqB7PDHrwg root@ubuntu (ED25519)
+Created symlink /etc/systemd/system/sshd.service → /lib/systemd/system/ssh.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/ssh.service → /lib/systemd/system/ssh.service.
+rescue-ssh.target is a disabled or a static unit, not starting it.
+Setting up ssh-import-id (5.10-0ubuntu1) ...
+Attempting to convert /etc/ssh/ssh_import_id
+Setting up ncurses-term (6.2-0ubuntu2) ...
+Processing triggers for systemd (245.4-4ubuntu3.2) ...
+Processing triggers for man-db (2.9.1-1) ...
+Processing triggers for ufw (0.36-6) ...
+matheus@ubuntu:~$ sudo systemctl status sshd
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sun 2020-09-13 08:18:29 PDT; 49s ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+   Main PID: 5575 (sshd)
+      Tasks: 1 (limit: 9455)
+     Memory: 1.3M
+     CGroup: /system.slice/ssh.service
+             └─5575 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+
+Sep 13 08:18:29 ubuntu systemd[1]: Starting OpenBSD Secure Shell server...
+Sep 13 08:18:29 ubuntu sshd[5575]: Server listening on 0.0.0.0 port 22.
+Sep 13 08:18:29 ubuntu sshd[5575]: Server listening on :: port 22.
+Sep 13 08:18:29 ubuntu systemd[1]: Started OpenBSD Secure Shell server.
+matheus@ubuntu:~$ sudo ufw allow ssh
+Rules updated
+Rules updated (v6)
+matheus@ubuntu:~$ sudo adduser ansible
+Adding user `ansible' ...
+Adding new group `ansible' (1001) ...
+Adding new user `ansible' (1001) with group `ansible' ...
+Creating home directory `/home/ansible' ...
+Copying files from `/etc/skel' ...
+New password: 
+Retype new password: 
+passwd: password updated successfully
+Changing the user information for ansible
+Enter the new value, or press ENTER for the default
+	Full Name []: 
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] y
+matheus@ubuntu:~$ echo "ansible ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/ansible
+ansible ALL=(ALL) NOPASSWD:ALL
+matheus@ubuntu:~$ hostname -I
+192.168.0.12 
+matheus@ubuntu:~$ ssh-copy-id ansible@192.168.0.12
+The authenticity of host '192.168.0.12 (192.168.0.12)' can't be established.
+ECDSA key fingerprint is SHA256:mD5M3PB7n0udoaaMB2m47NDU/xR7kzu4G9a+Oah1ZfA.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+ansible@192.168.0.12's password: 
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'ansible@192.168.0.12'"
+and check to make sure that only the key(s) you wanted were added.
+
+matheus@ubuntu:~$ sudo usermod -L ansible
+matheus@ubuntu:~$ ssh ansible@192.168.20.162
+ssh: connect to host 192.168.20.162 port 22: Connection timed out
+matheus@ubuntu:~$ ssh ansible@192.168.0.12
+Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-47-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+0 updates can be installed immediately.
+0 of these updates are security updates.
+
+Your Hardware Enablement Stack (HWE) is supported until April 2025.
+ansible@ubuntu:~$ script generate_ssh.txt
+Script started, file is generate_ssh.txt
+ansible@ubuntu:~$ script generate_ssh.txt
+Script started, file is generate_ssh.txt
+ansible@ubuntu:~$ ^C
+ansible@ubuntu:~$ 
+

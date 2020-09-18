@@ -1,0 +1,14 @@
+---
+
+- name: Iniciando o MongoDB
+  hosts: all
+  become: true
+  tasks:
+
+  - name: Start MongoDB
+    command:
+      cmd: sudo docker start 331bce131351
+
+  - name: Start MongoDB Express
+    command:
+      cmd: sudo docker start 17d1a4f074b8

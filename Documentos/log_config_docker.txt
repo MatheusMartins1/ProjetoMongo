@@ -1,0 +1,180 @@
+ansible@ubuntu:~$ sudo apt-get install \
+>     apt-transport-https \
+>     ca-certificates \
+>     curl \
+>     gnupg-agent \
+>     software-properties-common
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+ca-certificates is already the newest version (20190110ubuntu1.1).
+ca-certificates set to manually installed.
+software-properties-common is already the newest version (0.98.9.2).
+software-properties-common set to manually installed.
+The following packages were automatically installed and are no longer required:
+  libfprint-2-tod1 libllvm9 python3-click python3-colorama
+Use 'sudo apt autoremove' to remove them.
+The following NEW packages will be installed:
+  apt-transport-https curl gnupg-agent
+0 upgraded, 3 newly installed, 0 to remove and 1 not upgraded.
+Need to get 168 kB of archives.
+After this operation, 616 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://us.archive.ubuntu.com/ubuntu focal-updates/universe amd64 apt-transport-https all 2.0.2ubuntu0.1 [1,708 B]
+Get:2 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 curl amd64 7.68.0-1ubuntu2.2 [161 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 gnupg-agent all 2.2.19-3ubuntu2 [5,236 B]
+Fetched 168 kB in 1s (157 kB/s)      
+Selecting previously unselected package apt-transport-https.
+(Reading database ... 192352 files and directories currently installed.)
+Preparing to unpack .../apt-transport-https_2.0.2ubuntu0.1_all.deb ...
+Unpacking apt-transport-https (2.0.2ubuntu0.1) ...
+Selecting previously unselected package curl.
+Preparing to unpack .../curl_7.68.0-1ubuntu2.2_amd64.deb ...
+Unpacking curl (7.68.0-1ubuntu2.2) ...
+Selecting previously unselected package gnupg-agent.
+Preparing to unpack .../gnupg-agent_2.2.19-3ubuntu2_all.deb ...
+Unpacking gnupg-agent (2.2.19-3ubuntu2) ...
+Setting up apt-transport-https (2.0.2ubuntu0.1) ...
+Setting up gnupg-agent (2.2.19-3ubuntu2) ...
+Setting up curl (7.68.0-1ubuntu2.2) ...
+Processing triggers for man-db (2.9.1-1) ...
+ansible@ubuntu:~$ sudo apt-get remove docker docker-engine docker.io containerd runc
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+E: Unable to locate package docker-engine
+ansible@ubuntu:~$ sudo apt-get update
+Hit:1 http://us.archive.ubuntu.com/ubuntu focal InRelease
+Get:2 http://security.ubuntu.com/ubuntu focal-security InRelease [107 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu focal-updates InRelease [111 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu focal-backports InRelease [98.3 kB]
+Fetched 317 kB in 1s (245 kB/s)     
+Reading package lists... Done
+ansible@ubuntu:~$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+OK
+ansible@ubuntu:~$ apt-key fingerprint 0EBFCD88
+pub   rsa4096 2017-02-22 [SCEA]
+      9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+uid           [ unknown] Docker Release (CE deb) <docker@docker.com>
+sub   rsa4096 2017-02-22 [S]
+
+ansible@ubuntu:~$ sudo add-apt-repository \
+>    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+>    $(lsb_release -cs) \
+>    stable"
+Get:1 https://download.docker.com/linux/ubuntu focal InRelease [36.2 kB]
+Get:2 https://download.docker.com/linux/ubuntu focal/stable amd64 Packages [3,056 B]
+Hit:3 http://us.archive.ubuntu.com/ubuntu focal InRelease
+Get:4 http://us.archive.ubuntu.com/ubuntu focal-updates InRelease [111 kB]
+Get:5 http://us.archive.ubuntu.com/ubuntu focal-backports InRelease [98.3 kB]
+Get:6 http://security.ubuntu.com/ubuntu focal-security InRelease [107 kB]
+Fetched 356 kB in 6s (57.4 kB/s)                                                                                                   
+Reading package lists... Done
+ansible@ubuntu:~$ sudo apt-get update
+Hit:1 https://download.docker.com/linux/ubuntu focal InRelease
+Get:2 http://security.ubuntu.com/ubuntu focal-security InRelease [107 kB]                  
+Hit:3 http://us.archive.ubuntu.com/ubuntu focal InRelease                                  
+Get:4 http://us.archive.ubuntu.com/ubuntu focal-updates InRelease [111 kB]
+Get:5 http://us.archive.ubuntu.com/ubuntu focal-backports InRelease [98.3 kB]                                                      
+Fetched 317 kB in 6s (50.1 kB/s)                                                                                                   
+Reading package lists... Done
+ansible@ubuntu:~$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  libfprint-2-tod1 libllvm9 python3-click python3-colorama
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  aufs-tools cgroupfs-mount git git-man liberror-perl pigz
+Suggested packages:
+  git-daemon-run | git-daemon-sysvinit git-doc git-el git-email git-gui gitk gitweb git-cvs git-mediawiki git-svn
+The following NEW packages will be installed:
+  aufs-tools cgroupfs-mount containerd.io docker-ce docker-ce-cli git git-man liberror-perl pigz
+0 upgraded, 9 newly installed, 0 to remove and 1 not upgraded.
+Need to get 90.8 MB of archives.
+After this operation, 420 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 https://download.docker.com/linux/ubuntu focal/stable amd64 containerd.io amd64 1.2.13-2 [21.4 MB]
+Get:2 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 pigz amd64 2.4-1 [57.4 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 aufs-tools amd64 1:4.14+20190211-1ubuntu1 [104 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 cgroupfs-mount all 1.4 [6,320 B]
+Get:5 http://us.archive.ubuntu.com/ubuntu focal/main amd64 liberror-perl all 0.17029-1 [26.5 kB]
+Get:6 http://us.archive.ubuntu.com/ubuntu focal/main amd64 git-man all 1:2.25.1-1ubuntu3 [884 kB]
+Get:7 http://us.archive.ubuntu.com/ubuntu focal/main amd64 git amd64 1:2.25.1-1ubuntu3 [4,554 kB]
+Get:8 https://download.docker.com/linux/ubuntu focal/stable amd64 docker-ce-cli amd64 5:19.03.12~3-0~ubuntu-focal [41.2 MB]
+Get:9 https://download.docker.com/linux/ubuntu focal/stable amd64 docker-ce amd64 5:19.03.12~3-0~ubuntu-focal [22.5 MB]            
+Fetched 90.8 MB in 10s (8,935 kB/s)                                                                                                
+Selecting previously unselected package pigz.
+(Reading database ... 192367 files and directories currently installed.)
+Preparing to unpack .../0-pigz_2.4-1_amd64.deb ...
+Unpacking pigz (2.4-1) ...
+Selecting previously unselected package aufs-tools.
+Preparing to unpack .../1-aufs-tools_1%3a4.14+20190211-1ubuntu1_amd64.deb ...
+Unpacking aufs-tools (1:4.14+20190211-1ubuntu1) ...
+Selecting previously unselected package cgroupfs-mount.
+Preparing to unpack .../2-cgroupfs-mount_1.4_all.deb ...
+Unpacking cgroupfs-mount (1.4) ...
+Selecting previously unselected package containerd.io.
+Preparing to unpack .../3-containerd.io_1.2.13-2_amd64.deb ...
+Unpacking containerd.io (1.2.13-2) ...
+Selecting previously unselected package docker-ce-cli.
+Preparing to unpack .../4-docker-ce-cli_5%3a19.03.12~3-0~ubuntu-focal_amd64.deb ...
+Unpacking docker-ce-cli (5:19.03.12~3-0~ubuntu-focal) ...
+Selecting previously unselected package docker-ce.
+Preparing to unpack .../5-docker-ce_5%3a19.03.12~3-0~ubuntu-focal_amd64.deb ...
+Unpacking docker-ce (5:19.03.12~3-0~ubuntu-focal) ...
+Selecting previously unselected package liberror-perl.
+Preparing to unpack .../6-liberror-perl_0.17029-1_all.deb ...
+Unpacking liberror-perl (0.17029-1) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../7-git-man_1%3a2.25.1-1ubuntu3_all.deb ...
+Unpacking git-man (1:2.25.1-1ubuntu3) ...
+Selecting previously unselected package git.
+Preparing to unpack .../8-git_1%3a2.25.1-1ubuntu3_amd64.deb ...
+Unpacking git (1:2.25.1-1ubuntu3) ...
+Setting up aufs-tools (1:4.14+20190211-1ubuntu1) ...
+Setting up liberror-perl (0.17029-1) ...
+Setting up containerd.io (1.2.13-2) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/containerd.service → /lib/systemd/system/containerd.service.
+Setting up docker-ce-cli (5:19.03.12~3-0~ubuntu-focal) ...
+Setting up pigz (2.4-1) ...
+Setting up git-man (1:2.25.1-1ubuntu3) ...
+Setting up cgroupfs-mount (1.4) ...
+Setting up docker-ce (5:19.03.12~3-0~ubuntu-focal) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /lib/systemd/system/docker.service.
+Created symlink /etc/systemd/system/sockets.target.wants/docker.socket → /lib/systemd/system/docker.socket.
+Setting up git (1:2.25.1-1ubuntu3) ...
+Processing triggers for systemd (245.4-4ubuntu3.2) ...
+Processing triggers for man-db (2.9.1-1) ...
+Processing triggers for libc-bin (2.31-0ubuntu9) ...
+ansible@ubuntu:~$ sudo docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+0e03bdcc26d7: Pull complete 
+Digest: sha256:4cf9c47f86df71d48364001ede3a4fcd85ae80ce02ebad74156906caff5378bc
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+ansible@ubuntu:~$ 
+
