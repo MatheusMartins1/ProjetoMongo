@@ -3,6 +3,7 @@ cd D:\Users\Matheus\Documents\3 - Acadêmico\OneDrive - al.infnet.edu.br\1 - INF
 
 REM Iniciando diretório
 git init 
+git add .
 
 REM Status do diretório
 git status
@@ -16,18 +17,11 @@ git remote -v
 REM Primeiro commit
 git commit -m "First Commit"
 
+REM Pull + Merge
+git pull origin master --allow-unrelated-histories
+
 REM Push repository into origin
 git push origin master
 
-REM Remoção de uma pasta sem uso
-
-git config --global user.email "matheus.martins@al.infnet.edu.br"
-git config --global user.name "Matheus Martins"
-
-git add .
-git pull origin master
-git commit -am "Init commit"
-git push origin master
-
-git checkout -b ProjetoMongo
+REM As credenciais para publicação foram realizadas através o aplicativo do GitHub para Windows
 

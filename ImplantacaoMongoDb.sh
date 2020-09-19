@@ -98,6 +98,6 @@ ansible-playbook -i ./hosts -u ansible -b playbookMongo.yml
 ####################### Iniciar MongoDB #######################
 ansible-playbook -i ./hosts -u ansible -b playbookIniciarMongoDb.yml
 
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
-331bce131351        mongo-express       "tini -- /docker-ent…"   36 hours ago        Exited (143) 35 hours ago                       projetomongo_mongo-express_1
-17d1a4f074b8        mongo               "docker-entrypoint.s…"   36 hours ago        Exited (0) 35 hours ago                         projetomongo_mongo_1
+# CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
+# 331bce131351        mongo-express       "tini -- /docker-ent…"   36 hours ago        Exited (143) 35 hours ago                       projetomongo_mongo-express_1
+# 17d1a4f074b8        mongo               "docker-entrypoint.s…"   36 hours ago        Exited (0) 35 hours ago                         projetomongo_mongo_1
