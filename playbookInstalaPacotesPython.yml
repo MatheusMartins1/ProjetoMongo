@@ -1,0 +1,39 @@
+---
+
+- name: Instalação das bibliotecas do pyhton necessárias para rodar a API 
+  hosts: all
+  become: true
+  tasks:
+
+  - name: Instalar biblioteca requests 
+    command:
+      cmd: python3 -m pip install requests
+
+  - name: Instalar biblioteca pymongo 
+    command:
+      cmd: python3 -m pip install pymongo
+
+  - name: Instalar biblioteca urllib 
+    command:
+      cmd: python3 -m pip install urllib
+
+  - name: Instalar biblioteca datetime 
+    command:
+      cmd: python3 -m pip install datetime
+
+  - name: Instalar biblioteca json 
+    command:
+      cmd: python3 -m pip install json
+
+  - name: Instalar biblioteca pandas 
+    command:
+      cmd: python3 -m pip install pandas
+
+  - name: Instalar biblioteca re 
+    command:
+      cmd: python3 -m pip install re
+
+  - name: Instalar biblioteca time 
+    command:
+      cmd: python3 -m pip install time
+

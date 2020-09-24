@@ -1,0 +1,38 @@
+---
+
+- name: Instalação do docker e docker compose
+  hosts: all
+  become: true
+  tasks:
+
+  - name: Remover Versões antigas do docker caso exista
+    command:
+      cmd: apt-get remove docker docker-engine docker.io containerd runc
+
+  - name: instalar os pacotes para permitir que os protocolos HTTPS sejam utilizados quando necessário
+    command:
+      cmd: apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+
+  - name: Acidionar GPG key oficial do Docker
+    command:
+      cmd: curl -fsSL https://download.docker.com/linux/ubuntu/gpg |  apt-key add -
+
+  - name: Verificar GPG key
+    command:
+      cmd: apt-key fingerprint 0EBFCD88
+
+  - name: atualizar os pacotes
+    command:
+      cmd: apt-get update
+
+  - name: instalar a versão mais recente do docker e containerd
+    command:
+      cmd: apt-get install docker-ce docker-ce-cli containerd.io
+
+  - name: Verificar se o Docker foi instalado corretamente rodando a imagem hello-world
+    command:
+      cmd: docker run hello-world
+
+  - name: Instalação do docker compose
+    command:
+      cmd: apt install docker-compose

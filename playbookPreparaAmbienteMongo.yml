@@ -1,0 +1,30 @@
+---
+
+- name: Preparação do ambiente para o MongoDB
+  hosts: all
+  become: true
+  tasks:
+
+  - name: Baixar a imagem do MongoDB
+    command:
+      cmd: docker pull mongo
+
+  - name: Baixar a imagem do MongoDB Express
+    command:
+      cmd: docker pull mongo-express
+
+  - name: Checar a imagem do MongoDB
+    command:
+      cmd: docker images mongo
+
+  - name: Checar a imagem do MongoDB Express
+    command:
+      cmd: docker images mongo-express  
+
+  - name: Executar a instalação via docker-compose
+    command:
+      cmd: docker-compose up -d
+
+  - name: Checar se a rede mongo-compose-network foi gerada
+    command:
+      cmd: docker network ls  

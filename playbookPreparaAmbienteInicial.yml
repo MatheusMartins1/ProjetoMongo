@@ -1,0 +1,30 @@
+---
+
+- name: Preparações iniciais de ambiente
+  hosts: all
+  become: true
+  tasks:
+
+  - name: Verificar e realizar atualizações dos pacotes do sistema
+    command:
+      cmd: apt-get update
+
+  - name: Verificar e realizar atualizações de novos pacotes do sistema
+    command:
+      cmd: apt-get upgrade
+
+  - name: Instalar a versão mais recente do Python (3.8)
+    command:
+      cmd: apt-get install python3.8-dev python3.8
+
+  - name: Instalação do PIP
+    command:
+      cmd: apt install python3-pip
+
+  - name: Verificação da versão do Python
+    command:
+      cmd: python3 --version
+
+  - name: Verificação da versão do PIP
+    command:
+      cmd: pip3 --version
