@@ -88,38 +88,40 @@ ssh-copy-id ansible@192.168.0.12
 # disable password-based login for the ansible user
 sudo usermod -L ansible
 
-
-
 ####################### Testando Ansible #######################
 
-# you should be able to SSH into the ansible host 
+# Testando acesso via SSH
 ssh ansible@192.168.0.12
 
+#Criando diretório do projeto
 mkdir ~/projetoMongo
 
+#Acessando diretório do projeto
 cd ~/projetoMongo
 
+# Configurar arquivo hosts com o ip utilizado - 192.168.0.12
 nano hosts
 
+# Pingando o ansible
 ansible all -i ./hosts -u ansible -m ping
 
+# Testanto o host
 ansible all -i ./hosts -u ansible -m shell -a 'echo "$(hostname) - $(hostname -I)"'
 
 
-####################### Instalação do MongoDB #######################
+####################### Comandos para rodar as playbooks #######################
 
-ansible-playbook -i ./hosts -u ansible -b playbookPreparaAmbiente.yml
+# Executar playbook PreparaAmbienteInicial
+ansible-playbook -i ./hosts -u ansible -b playbookPreparaAmbienteInicial.yml
 
-sudo docker-compose up -d
+# Executar playbook InstalaPacotesPython
+ansible-playbook -i ./hosts -u ansible -b playbookInstalaPacotesPython.yml
 
-sudo docker network ls
+# Executar playbook InstalaDocker
+ansible-playbook -i ./hosts -u ansible -b playbookInstalaDocker.yml
 
+# Executar playbook PreparaAmbienteMongo
+ansible-playbook -i ./hosts -u ansible -b playbookPreparaAmbienteMongo.yml
+
+# Caso o servidor seja reiniciado será necessário iniciar a imagem do Mongo e MongoDB através do playbook IniciarMongoDb - 
 ansible-playbook -i ./hosts -u ansible -b playbookIniciarMongoDb.yml
-
-####################### Iniciar MongoDB #######################
-ansible-playbook -i ./hosts -u ansible -b playbookIniciarMongoDb.yml
-
-# CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
-# 331bce131351        mongo-express       "tini -- /docker-ent…"   36 hours ago        Exited (143) 35 hours ago                       projetomongo_mongo-express_1
-# 17d1a4f074b8        mongo               "docker-entrypoint.s…"   36 hours ago        Exited (0) 35 hours ago                         projetomongo_mongo_1
-
