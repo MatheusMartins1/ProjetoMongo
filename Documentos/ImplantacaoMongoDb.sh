@@ -6,8 +6,6 @@ sudo apt-get update
 sudo apt-get upgrade
 
 ####################### Atualização do python #######################
-sudo apt-get update
-sudo apt-get upgrade
 
 # Instalar a versão mais recente do Python (3.8)
 sudo apt-get install python3.8-dev python3.8
@@ -29,7 +27,6 @@ sudo apt install ansible
 # Verificação da versão instalada
 ansible --version
 
-
 ####################### Instalação do docker #######################
 
 # Remover Versões antigas do docker caso exista
@@ -44,6 +41,12 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 # Verificar GPG key
 sudo apt-key fingerprint 0EBFCD88
 
+# Adicionando um repositório
+sudo add-apt-repository \
+   "deb [arch=arm64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
 #atualizar os pacotes
 sudo apt-get update
 
@@ -56,37 +59,37 @@ sudo docker run hello-world
 # Instalação do docker compose
 sudo apt install docker-compose
 
-
 ####################### Configuração o serviço SSH #######################
+
+# atualizar os pacotes
+sudo apt update
 
 # Criação de chave utilizando o ssh-keygen
 ssh-keygen
 
-# Configurando o Host para as automatizações ansible
-sudo apt update
-
+# Instalar o openssh-server
 sudo apt install openssh-server -y
 
 # Checagem do SSH
 sudo systemctl status sshd
 
-# configure the firewall to allow SSH access
+# Configurar o firewall para permitir acesso SSH
 sudo ufw allow ssh
 
-# create an ansible user
+# Criar o usuário ansible
 sudo adduser ansible
 
-# configure password-less sudo access to the ansible user
+# Configurar acesso sudo sem senha para o usuário ansible
 echo "ansible ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/ansible
 
-# find the IP address of the Ansible host
+# Verificar o endereço IP do host Ansible
 hostname -I
 
-# copy the SSH public key to the Ansible host
+# Copiando SSH public key do host Ansible
 ssh-copy-id ansible@192.168.0.12
 
 # disable password-based login for the ansible user
-sudo usermod -L ansible
+# sudo usermod -L ansible
 
 ####################### Testando Ansible #######################
 
@@ -109,6 +112,8 @@ ansible all -i ./hosts -u ansible -m ping
 ansible all -i ./hosts -u ansible -m shell -a 'echo "$(hostname) - $(hostname -I)"'
 
 
+### Caso a implantação do projeto seja feita utilizando playbooks, basta executar os comandos abaixo ###
+
 ####################### Comandos para rodar as playbooks #######################
 
 # Executar playbook PreparaAmbienteInicial
@@ -123,5 +128,5 @@ ansible-playbook -i ./hosts -u ansible -b playbookInstalaDocker.yml
 # Executar playbook PreparaAmbienteMongo
 ansible-playbook -i ./hosts -u ansible -b playbookPreparaAmbienteMongo.yml
 
-# Caso o servidor seja reiniciado será necessário iniciar a imagem do Mongo e MongoDB através do playbook IniciarMongoDb - 
+# Caso o servidor seja reiniciado será necessário iniciar a imagem do Mongo e MongoDB através do playbook IniciarMongoDb -
 ansible-playbook -i ./hosts -u ansible -b playbookIniciarMongoDb.yml
